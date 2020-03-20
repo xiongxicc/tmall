@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <link rel="stylesheet" type="text/css" media="all" href="webapp/static/css/style.css" th:href="@{/static/css/style.css}">
+    <script src="https://how2j.cn/study/jquery.min.js"></script>
+    <script type="text/javascript"   th:src="@{/static/js/tmall.js}"></script>
+    <title>模仿天猫官网</title>
+
+<body>
+
+<!--顶端div-->
+<div class="top" id="top">
+
+    <!--登录-->
+    <div class="top-left">
+        <a href="#" id="shop" >我要开店</a>
+        <span>喵，欢迎来天猫</span>
+        <a class="a-width" href="/tmall/register">免费注册</a>
+    </div>
+    <div class="top-right">
+        <a href="tmall/loading" id="loading">登录</a>
+    </div>
+
+
+</div>
+<div>
+    <a href="#nowhere"> <img class="logo" src="img/site/logo.gif" id="logo"/></a>
+<div class="search">
+    <form method="post" action="/tmall/select">
+        <input type="text" name="productName" placeholder="冰箱，洗衣机">
+        <button type="submit">搜索</button>
+    </form>
+    <div class="searchBelow">
+        <span><a href="#nowhere">平衡车</a></span><span>|</span>
+        <span><a href="#nowhere">冰箱</a></span><span>|</span>
+        <span><a href="#nowhere">洗衣机</a></span>
+    </div>
+</div>
+</div>
+
+<div class="subject">
+    <div class="subject-top">
+        <div ><span class="sp">商品分类</span></div>
+        <div > <a href="#nowhere"><span>天猫超市</span></a></div>
+        <div> <a href="#nowhere"><span>天猫国际</span></a></div>
+        <div > <a href="#nowhere"><span>平板电视</span></a></div>
+        <div ><a href="#nowhere"><span>马桶</span></a></div>
+        <div > <a href="#nowhere"><span>沙发</span></a></div>
+        <div > <a href="#nowhere"><span>电热水器</span></a></div>
+    </div>
+    <div class="category" >
+        <table>
+        <tr  th:each="c : ${jsonCategorys}">
+           <td> <a href="#nowhere" ><div th:id="${c.id}"  class="enter" th:text="${c.name}"></div></a> </td>
+        </tr>
+     </table>
+    </div>
+    <div id="productImage" class="proImage">
+        <ul class="slide-img">
+            <li><img src="img/lunbo/1.jpg" ></li>
+            <li><img src="img/lunbo/2.jpg" ></li>
+            <li><img src="img/lunbo/3.jpg" ></li>
+            <li><img src="img/lunbo/4.jpg" ></li>
+            <li><img src="img/lunbo/5.jpg" ></li>
+        </ul>
+        <ul class="slide-index">
+
+        </ul>
+    </div>
+    <div th:id="0" class="proValues" th:each="jsonArray : ${jsonProValByCate}" >
+    <div class="proValueOut" th:each="proValues:${jsonArray}">
+        <div class="proValue">
+        <span th:each="proValue:${proValues}">
+           <a href="tmall/product?pid=1" th:text="${proValue.value}"></a>
+        </span>
+        </div>
+        <HR align=left width=600px color=#999 SIZE=0.5>
+
+    </div>
+    </div>
+</div>
+</body>
+</html>

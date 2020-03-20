@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <footer th:fragment="footer1">
+        <p>不安逸</p>
+    </footer>
+
+    <footer th:fragment="footer2(start, now)">
+        <p th:text="| ${start} + ${now} |"></p>
+    </footer>
+</body>
+</html>

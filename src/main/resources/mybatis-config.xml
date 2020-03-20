@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 根标签 -->
+<configuration>
+
+    <!-- 数据库连接信息属性文件-->
+    <properties resource="property.properties"/>
+    <!-- 环境，可以配置多个，default：指定采用哪个环境 -->
+    <environments default="tmall">
+        <!-- id：唯一标识 -->
+        <environment id="tmall">
+            <!-- 事务管理器，JDBC类型的事务管理器 -->
+            <transactionManager type="JDBC" />
+            <!-- 数据源，池类型的数据源 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value='${jdbc.UserName}' />
+                <property name="password" value="${jdbc.Password}" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper/propertyValueMapper.xml"/>
+        <mapper resource="mapper/categoryMapper.xml" />
+        <mapper resource="mapper/productMapper.xml" />
+        <mapper resource="mapper/orderMapper.xml" />
+        <mapper resource="mapper/orderItemMapper.xml" />
+        <mapper resource="mapper/propertyMapper.xml" />
+        <mapper resource="mapper/productImageMapper.xml" />
+        <mapper resource="mapper/reviewMapper.xml" />
+        <mapper resource="mapper/userMapper.xml" />
+    </mappers>
+
+</configuration>

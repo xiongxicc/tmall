@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.OrderItemMapper">
+
+    <select id="selectAll" resultType="com.tmall.pojo.OrderItem">
+        SELECT * FROM orderItem;
+    </select>
+
+    <select id="selectOrderItemByUid" resultType="com.tmall.pojo.OrderItem">
+        SELECT * FROM orderItem
+        WHERE
+        uid=#{uid};
+    </select>
+
+    <select id="selectOrderItemByPid" resultType="com.tmall.pojo.OrderItem">
+        SELECT * FROM orderItem
+        WHERE
+        pid=#{pid};
+    </select>
+
+    <select id="selectOrderItemByOid" resultType="com.tmall.pojo.OrderItem">
+        SELECT * FROM orderItem
+        WHERE
+        oid=#{oid};
+    </select>
+
+    <select id="selectOrderItemById" resultType="com.tmall.pojo.OrderItem">
+        SELECT * FROM orderItem
+        WHERE
+        id=#{id};
+    </select>
+
+    <insert id="insertOrderItem" parameterType="com.tmall.pojo.OrderItem" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO orderItem VALUES (null, #{pid}, #{oid}, #{uid}, #{number});
+    </insert>
+
+    <update id="updateOrderItem" parameterType="com.tmall.pojo.OrderItem">
+        UPDATE orderItem
+        <trim prefix="set" suffixOverrides=",">
+            <if test="pid > 0">pid=#{pid}</if>
+            <if test="oid > 0">oid=#{oid}</if>
+            <if test="uid > 0">uid=#{uid}</if>
+            <if test="number > 0">number=#{number}</if>
+        </trim>
+        WHERE
+        (id=#{id});
+    </update>
+
+    <delete id="deleteOrderItem" >
+        DELETE FROM orderItem
+        WHERE
+        id=#{id};
+    </delete>
+</mapper>

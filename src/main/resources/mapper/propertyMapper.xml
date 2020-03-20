@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.PropertyMapper">
+
+    <resultMap id="propertyBean" type="com.tmall.pojo.Property">
+        <id column="pid" property="id"/>
+        <result column="propertyName" property="name"/>
+        <association property="category" javaType="com.tmall.pojo.Category">
+            <id column="cid" property="id"/>
+            <result column="categoryName" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="propertyBean">
+        SELECT p.*, c.*, p.id 'pid', p.name 'propertyName', c.id 'cid', c.name 'categoryName' FROM property p JOIN category c on p.cid = c.id;
+    </select>
+    <select id="selectPropertyById" resultType="com.tmall.pojo.Property">
+        SELECT * FROM property
+        WHERE
+        id=#{id};
+    </select>
+
+    <select id="selectPropertyByCid" resultType="com.tmall.pojo.Property">
+        SELECT * FROM property
+        WHERE
+        cid=#{cid};
+    </select>
+
+    <insert id="insertProperty" parameterType="com.tmall.pojo.Property" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO property VALUES (null, #{cid}, #{name});
+    </insert>
+
+    <update id="updateProperty" parameterType="com.tmall.pojo.Property">
+        UPDATE property
+        <trim prefix="set" suffixOverrides=",">
+            <if test="cid >0">cid='${cid}',</if>
+            <if test="name !=null">name='${name}'</if>
+        </trim>
+        WHERE
+        (id=${id});
+    </update>
+    <delete id="deleteProperty">
+        DELETE from property
+        WHERE
+        (id=#{id});
+    </delete>
+</mapper>

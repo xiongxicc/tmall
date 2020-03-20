@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://how2j.cn/study/jquery.min.js"></script>
+    <title>登录</title>
+    <script type="text/javascript">
+       $(function (){
+           $("#check").click(function () {
+               var userName = document.getElementById("userName").value;
+               var password = document.getElementById("password").value;
+               var isEmpty = [[${isEmpty}]];
+               if (userName == "" || password == "") {
+                   alert("用户名或密码不能为空！");
+               }
+               else if (userName != null && password != null && isEmpty == false) {
+                   alert("密码错误！");
+               }
+               else if (isEmpty == true) {
+                   alert("登录成功！");
+               }
+               else {
+                   alert("未知错误！");
+               }
+           });
+
+        });
+    </script>
+    <style>
+        html, body{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .simpleLogo{
+            position: absolute;
+            left: 30px;
+            top: 20px;
+
+        }
+        div.subject{
+            z-index: -1;
+            width: 1190px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+            top:50%;
+            margin-top: -280px;
+            background:url("/img/site/loginBackground.png");
+        }
+        div.loading{
+            z-index: 1;
+            width: 300px;
+            height: 400px;
+            background: white;
+            position: absolute;
+            right: 240px;
+            top: 180px;
+        }
+        div.loading span{
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+            margin-left: 30px;
+            margin-top: 50px;
+        }
+
+        div.loading input{
+
+            width: 240px;
+            height: 30px;
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+        div.loading button{
+            width: 240px;
+            height: 30px;
+            background: #C40000;
+            outline: none;
+            border: 1px solid transparent;
+            margin-left: 30px;
+            margin-top: 50px;
+        }
+        div.loading div{
+            margin-top: 30px;
+        }
+        .forget{
+            color: #999;
+            text-decoration:none;
+            font-size: 12px;
+            margin-left: 30px;
+        }
+        .register{
+            color: #999;
+            text-decoration:none;
+            font-size: 12px;
+        }
+        div.loading a:hover{
+            color: #C40000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<img class="simpleLogo" src="/img/site/simpleLogo.png" />
+<div class ="subject">
+</div>
+<div class="loading">
+    <span>账户登录</span>
+    <form method="post" action="loading">
+        <input id="userName" name="userName" type="text" th:value="${userName}" >
+        <input id="password" name="password" type="password"th:value="${password}" />
+        <div>
+            <a class="forget" href="#nowhere">忘记密码？</a>
+            <a class="register" href="register">免费注册</a>
+        </div>
+        <button id="check" type="submit">登录</button>
+    </form>
+</div>
+</body>
+</html>

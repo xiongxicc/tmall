@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.ProductMapper">
+
+    <select id="selectAll" resultType="com.tmall.pojo.Product">
+        SELECT * FROM product;
+    </select>
+    <select id="selectById" resultType="com.tmall.pojo.Product">
+        SELECT * FROM product
+        WHERE
+        id=#{id};
+    </select>
+
+    <select id="selectByName" resultType="com.tmall.pojo.Product">
+        SELECT * FROM product
+        WHERE
+        name LIKE concat('%',#{name},'%');
+    </select>
+
+    <insert id="insertProduct" parameterType="com.tmall.pojo.Product" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO product VALUES (null, #{name}, #{subTitle}, #{orignalPrice}, #{promotePrice}, #{stock}, #{cid}, #{createDate});
+    </insert>
+
+    <update id="updateProduct" parameterType="com.tmall.pojo.Product">
+        UPDATE product
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name !=null">name='${name}',</if>
+            <if test="subTitle !=null">subTitle='${subTitle}',</if>
+            <if test="orignalPrice >=0">orignalPrice=${orignalPrice},</if>
+            <if test="promotePrice >=0">promotePrice=${promotePrice},</if>
+            <if test="stock >=0">stock=${stock},</if>
+            <if test="cid !=0">cid=${cid},</if>
+            <if test="createDate !=null">createDate='${createDate}'</if>
+        </trim>
+        WHERE
+        (id=${id});
+    </update>
+    <delete id="deleteProduct">
+        DELETE from product
+        WHERE
+        (id=#{id});
+    </delete>
+</mapper>

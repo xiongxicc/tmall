@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://how2j.cn/study/jquery.min.js"></script>
+    <link rel="stylesheet " type="text/css" media="all" href="/static/css/productStyle.css">
+    <title></title>
+
+    <script>
+        $(function () {
+            var category = 12;
+            var img = "<img src='/img/category/"+ category+".jpg'>"
+            $(".categoryImg").append(img);
+        });
+    </script>
+</head>
+<body >
+<div class="top">
+    <div class="top-left">
+        <a id="first" href="/tmall">天猫首页</a>
+        <span>喵，欢迎来天猫</span>
+        <a class="a-width" href="loading">请登录</a>
+        <a class="a-width" href="register">免费注册</a>
+    </div>
+    <div class="top-right">
+        <a  class="order"  href="#">我的订单</a>
+        <a class="right" href="#">购物车</a>
+    </div>
+</div>
+
+<a href="/tmall"> <img class="simpleLogo" src="/img/site/simpleLogo.png"/></a>
+<div class="select">
+    <form method="post" action="select">
+        <input type="text" name="productName" placeholder="冰箱，洗衣机"/>
+        <button type="submit">搜天猫</button>
+    </form>
+</div>
+<div class="categoryImg" align="center"/>
+
+</body>
+</html>

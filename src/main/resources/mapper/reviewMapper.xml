@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.ReviewMapper">
+
+    <select id="selectAll" resultType="com.tmall.pojo.Review">
+        SELECT * FROM review;
+    </select>
+    <select id="selectReviewById" resultType="com.tmall.pojo.Review">
+        SELECT * FROM review
+        WHERE
+        id=#{id};
+    </select>
+
+    <select id="selectReviewByPid" resultType="com.tmall.pojo.Review">
+        SELECT * FROM review
+        WHERE
+        pid=#{pid};
+    </select>
+
+    <select id="selectReviewByUid" resultType="com.tmall.pojo.Review">
+        SELECT * FROM review
+        WHERE
+        uid=#{uid};
+    </select>
+
+    <insert id="insertReview" parameterType="com.tmall.pojo.Review" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO review VALUES (null, #{content}, #{uid}, #{pid}, #{createDate});
+    </insert>
+
+    <update id="updateReview" parameterType="com.tmall.pojo.Review">
+        UPDATE review
+        <trim prefix="set" suffixOverrides=",">
+            <if test="content !=null">content='${content}',</if>
+            <if test="uid >0">uid='${uid}',</if>
+            <if test="pid >0">pid='${pid}',</if>
+            <if test="createDate !=null">createDate='${createDate}'</if>
+        </trim>
+        WHERE
+        (id=${id});
+    </update>
+    <delete id="deleteReview">
+        DELETE from review
+        WHERE
+        (id=#{id});
+    </delete>
+</mapper>

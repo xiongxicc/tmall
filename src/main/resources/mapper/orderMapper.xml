@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.OrderMapper">
+
+    <select id="selectAll" resultType="com.tmall.pojo.Order_">
+        SELECT * FROM order_;
+    </select>
+
+    <select id="selectOrderById" resultType="com.tmall.pojo.Order_">
+        SELECT * FROM order_
+        WHERE
+        id=#{id};
+    </select>
+
+    <select id="selectOrderByUid" resultType="com.tmall.pojo.Order_">
+        SELECT * FROM order_
+        WHERE
+        uid=#{uid};
+    </select>
+
+    <insert id="insertOrder" parameterType="com.tmall.pojo.Order_" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO order_ VALUES(null, ${orderCode}, #{address}, #{post}, #{receiver}, #{mobile}, #{userMessage}, #{createDate}, #{payDate}, #{deliveryDate}, #{confirmDate}, #{uid}, #{status});
+    </insert>
+
+    <update id="updateOrder" parameterType="com.tmall.pojo.Order_">
+        UPDATE order_
+        <trim prefix="set" suffixOverrides=",">
+            <if test="orderCode !=null">orderCode='${orderCode}',</if>
+            <if test="address !=null">address='${address}',</if>
+            <if test="post !=null">post='${post}',</if>
+            <if test="receiver !=null">receiver='${receiver}',</if>
+            <if test="mobile !=null">mobile='${mobile}',</if>
+            <if test="userMessage !=null">userMessage='${userMessage}',</if>
+            <if test="createDate !=null">createDate='${createDate}',</if>
+            <if test="payDate !=null">payDate='${payDate}',</if>
+            <if test="deliveryDate !=null">deliveryDate='${deliveryDate}',</if>
+            <if test="confirmDate !=null">confirmDate='${confirmDate}',</if>
+            <if test="uid >0">uid='${uid}',</if>
+            <if test="status !=null">status='${status}'</if>
+        </trim>
+        WHERE
+        (id=${id});
+    </update>
+    <delete id="deleteOrder">
+        DELETE from order_
+        WHERE
+        (id=#{id});
+    </delete>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.CategoryMapper">
+
+    <select id="selectAll" resultType="com.tmall.pojo.Category">
+        SELECT * FROM category;
+    </select>
+
+    <select id="selectCategoryById" resultType="com.tmall.pojo.Category">
+        SELECT * FROM category
+        WHERE
+        id=#{id};
+    </select>
+
+    <select id="selectCategoryByPid" resultType="com.tmall.pojo.Category">
+        SELECT * FROM category c JOIN  product p on c.id=p.cid
+        WHERE
+        p.id=#{pid};
+    </select>
+
+    <insert id="insertCategory" parameterType="com.tmall.pojo.Category" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO category VALUES (null, #{name});
+    </insert>
+
+    <update id="updateCategory" parameterType="com.tmall.pojo.Category">
+        UPDATE category
+      <trim prefix="set" suffixOverrides=",">
+          <if test="name != null">name=#{name}</if>
+      </trim>
+        WHERE
+        (id=#{id});
+    </update>
+
+    <delete id="deleteCategory">
+        DELETE FROM category
+        WHERE
+        id=#{id};
+    </delete>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.PropertyValueMapper">
+
+    <resultMap type="com.tmall.pojo.PropertyValue" id="propertyValueBean" >
+        <id column="pvid" property="id"/>
+        <result column="value" property="value"/>
+        <association property="property" javaType="com.tmall.pojo.Property">
+            <id column="ptid" property="id"/>
+            <result column="propertyName" property="name"/>
+            <association property="category" javaType="com.tmall.pojo.Category">
+                <id column="cid" property="id"/>
+                <result column="categoryName" property="name"/>
+            </association>
+        </association>
+        <association property="product" javaType="com.tmall.pojo.Product">
+            <id column="pid" property="id"/>
+        </association>
+    </resultMap>
+
+<select id="selectAll" resultMap="propertyValueBean">
+    SELECT a.*, c.*, b.*, a.id 'pvid', b.id 'ptid', b.name 'propertyName', c.id 'cid', c.name 'categoryName'  FROM propertyValue a JOIN property b ON a.ptid=b.id JOIN category c ON b.cid=c.id
+</select>
+<select id="selectPropertyValueById" resultType="com.tmall.pojo.PropertyValue">
+    SELECT * FROM propertyValue
+    WHERE
+    id=#{id};
+</select>
+
+<select id="selectPropertyValueByPid" resultType="com.tmall.pojo.PropertyValue">
+    SELECT * FROM propertyValue
+    WHERE
+    pid=#{pid};
+</select>
+
+<select id="selectPropertyValueByPtid" resultType="com.tmall.pojo.PropertyValue">
+    SELECT * FROM propertyValue
+    WHERE
+    ptid=#{ptid};
+</select>
+
+<insert id="insertPropertyValue" parameterType="com.tmall.pojo.PropertyValue" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    INSERT INTO propertyValue VALUES (null, #{pid}, #{ptid}, #{value});
+</insert>
+
+<update id="updatePropertyValue" parameterType="com.tmall.pojo.PropertyValue">
+    UPDATE propertyValue
+    <trim prefix="set" suffixOverrides=",">
+        <if test="pid >0">pid='${pid}',</if>
+        <if test="ptid >0">ptid='${ptid}',</if>
+        <if test="value !=null">value='${value}'</if>
+    </trim>
+    WHERE
+    (id=${id});
+</update>
+<delete id="deletePropertyValue">
+    DELETE from propertyValue
+    WHERE
+    (id=#{id});
+</delete>
+</mapper>

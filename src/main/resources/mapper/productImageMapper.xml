@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tmall.mapper.ProductImageMapper">
+
+    <select id="selectAll" resultType="com.tmall.pojo.ProductImage">
+        SELECT * FROM productImage;
+    </select>
+    <select id="selectProductImageById" resultType="com.tmall.pojo.ProductImage">
+        SELECT * FROM productImage
+        WHERE
+        id=#{id};
+    </select>
+
+    <select id="selectProductImageByPid" resultType="com.tmall.pojo.ProductImage">
+        SELECT * FROM productImage
+        WHERE
+        pid=#{pid};
+    </select>
+
+    <insert id="insertProductImage" parameterType="com.tmall.pojo.ProductImage" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO productImage VALUES (null, #{pid}, #{type});
+    </insert>
+
+    <update id="updateProductImage" parameterType="com.tmall.pojo.ProductImage">
+        UPDATE productImage
+        <trim prefix="set" suffixOverrides=",">
+            <if test="pid >0">pid='${pid}',</if>
+            <if test="type !=null">type='${type}'</if>
+        </trim>
+        WHERE
+        (id=${id});
+    </update>
+    <delete id="deleteProductImage">
+        DELETE from productImage
+        WHERE
+        (id=#{id});
+    </delete>
+</mapper>

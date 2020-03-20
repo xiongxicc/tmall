@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet " type="text/css" media="all" href="../../webapp/static/css/style.css" th:href="@{/static/css/style.css}">
+    <script type="text/javascript" src="../../webapp/static/js/contrl.js" th:src="@{/static/js/contrl.js}"></script>
+    <script>
+        contrl();
+    </script>
+</head>
+<body>
+<div class="showing">
+    <p th:text="${category}">name</p>
+</div>
+
+<div class="showing">
+
+    <div th:replace="include::footer1"></div>
+    <div th:replace="include::footer2(147,158)"></div>
+</div>
+
+<div>
+    <p th:if="${bool}">如果bool为true，打印这句话</p>
+    <p th:if="${not bool}">如果bool为ture，不打印这句话</p>
+    <p th:unless="${bool}">如果bool为ture，不打印这句话unless</p>
+    <p th:text="${bool}? '三目运算打印true':'打印false'"></p>
+</div>
+
+<table class="showing" border="1">
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>name</td>
+        </tr>
+    </thead>
+    <tr th:each="c : ${category}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.name}"></td>
+    </tr>
+</table>
+
+<table border="1">
+    <thead>
+    <tr>
+        <td>id</td>
+        <td>name</td>
+    </tr>
+    </thead>
+    <tr th:class="${status.even} ? even : odd" th:each="c, status : ${category}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.name}"></td>
+    </tr>
+</table>
+
+<div class="showing">
+    <h2>格式化日期</h2>
+    直接输出日期 ${now}:
+    <p th:text="${now}"></p>
+    默认格式化 ${#dates.format(now)}:
+    <p th:text="${#dates.format(now)}"></p>
+    自定义格式化 ${#dates.format(now,'yyyy-MM-dd HH:mm:ss')}:
+    <p th:text="${#dates.format(now,'yyyy-MM-dd HH:mm:ss')}"></p>
+</div>
+</body>
+</html>
